@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="UTF-8">  
+    <title>Lisa Tomasetti - Tax Calculator</title>
+    <link rel="stylesheet" href="tax.css">
+    <script>
+
+
+
+    const getErrorMsgTax = lbl => 'Tax percentage must be a valid number greater than zero and less than 100.';  
+
+        "use strict";
+        var $ = function(id) {
+            return document.getElementById(id);
+        };
+        const calculateTax = (subtotal, taxRate) => {
+        const taxAmount = subtotal * taxRate/100; 
+        const total = taxAmount + subtotal ; 
+        return total; 
+        };  
+
+
+
+    var processEntries = function() {
+            var price = parseFloat($("price").value);
+            var tax = parseFloat($("tax").value);
+
+           
+            if (isNaN(price) || isNaN(tax)) {
+                alert("Both entries must be numeric");
+                focusAndSelect("price");
+            } 
+            else if (isNaN(tax) || tax <= 0 || tax >= 100) {
+                      alert(getErrorMsgTax("tax"));
+                    focusAndSelect("tax"); } 
+            else {
+              $("total").value = calculateTax(price, tax);
+            $("total").focus();
+            }
+        };
+    window.onload = function() {
+            $("calculate").onclick = processEntries;
+        };
+
+    </script>
+</head>
+<body>
+    <main>
+        <h1>Tax Calculator</h1>
+        <label for="price">Sales Amount:</label>
+    <input type="text" id="price"><br>
+        <label for="tax">Tax Percent:</label>
+        <input type="text" id="tax"><br>
+        <label for="total">Total</label>
+        <input type="text" id="total" disabled><br>
+        <label>&nbsp;</label>
+        <input type="button" id="calculate" value="Calculate Tax"><br>
+    </main>
+</body>
+</html>
